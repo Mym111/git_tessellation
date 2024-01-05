@@ -241,7 +241,9 @@ function pretentiousTranslate(text) {
         "therefore": "ergo",
         "and then": "ergo",
         "many": "plethora",
-        "things": "milieu"
+        "things": "milieu",
+        "I'm leaving now": "Good day, sir",
+        "bye": "good day, sir"
     };
 
     const lowerCaseReplacements = Object.keys(replacements).reduce((acc, key) => {
