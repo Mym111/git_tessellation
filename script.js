@@ -237,7 +237,11 @@ function pretentiousTranslate(text) {
         "room, chamber" : "cubiculo",
         "rascal who goes too often to the barber" : "cullionly barbermonger",
         "curtsey, bow" : "cursy",
-        "thief" : "cut-purse"
+        "thief" : "cut-purse",
+        "therefore": "ergo",
+        "and then": "ergo",
+        "many": "plethora",
+        "things": "milieu"
     };
 
     const lowerCaseReplacements = Object.keys(replacements).reduce((acc, key) => {
