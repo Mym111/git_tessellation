@@ -154,7 +154,17 @@ function pretentiousTranslate(text) {
         "I don't care": "My most profound depths of compassion fail to produce the effort to acknowledge this",
         "I dont care": "My most profound depths of compassion fail to produce the effort to acknowledge this",
         "Mym": "MYM",
-        "Jeef": "Mr.Jeef"
+        "Jeef": "Mr.Jeef",
+        "is": "isseth",
+        "amazing": "awe inspiring, mmm, yes",
+        "inventory": "itemized list of related products",
+        "dicks": "penises",
+        "dick": "penis",
+        "cock": "penis",
+        "fuck": "fucketh",
+        "shit": "shitteth",
+        "crap": "crappeth",
+        "simp": "sycophant"
     };
 
     const lowerCaseReplacements = Object.keys(replacements).reduce((acc, key) => {
