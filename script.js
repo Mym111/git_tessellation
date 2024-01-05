@@ -154,6 +154,7 @@ function pretentiousTranslate(text) {
         "I don't care": "My most profound depths of compassion fail to produce the effort to acknowledge this",
         "I dont care": "My most profound depths of compassion fail to produce the effort to acknowledge this",
         "Mym": "MYM",
+        "Jeef": "Mr.Jeef"
     };
 
     const lowerCaseReplacements = Object.keys(replacements).reduce((acc, key) => {
