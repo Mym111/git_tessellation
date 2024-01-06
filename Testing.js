@@ -1,34 +1,41 @@
 require('dotenv').config();
 const express = require('express');
-const { OpenAIApi } = require("openai");
+const openai = require('openai');
 
 const app = express();
-app.use(express.json({ extended: true, limit: '1mb' }));
+app.use(express.json());
 
-// Set the OpenAI API Key directly without using Configuration
-const openai = new OpenAIApi({
+// Instantiate the OpenAIApi directly with the API key
+const api = new openai.OpenAIApi({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+console.log("OpenAI API Key:", process.env.OPENAI_API_KEY); // Log the API key for confirmation, remove this in production
+
 app.post('/translate', async (req, res) => {
+    console.log('Received translation request:', req.body); // Log the incoming request body
+
     try {
-        const response = await openai.createChatCompletion({
+        const response = await api.createChatCompletion({
             model: "gpt-3.5-turbo",
             messages: [{
                 role: "system",
-                content: "You are a helpful translator."
+                content: "You are a helpful translator..."
+                // Rest of the system message
             }, {
                 role: "user",
-                content: req.body.prompt
+                content: req.body.prompt // Log the prompt to ensure it's received correctly
             }],
-            max_tokens: 256,
         });
 
-        // Assuming the response structure matches the API's response
+        console.log('Received response from OpenAI:', response.data); // Log the full response from OpenAI
         res.json({ translation: response.data.choices[0].message.content });
     } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: error.message });
+        console.error('Error making request to OpenAI:', error); // Log detailed error if the request fails
+        if (error.response) {
+            console.error('OpenAI response error:', error.response.data); // Log OpenAI response error details
+        }
+        res.status(500).send('Error processing your request.');
     }
 });
 
