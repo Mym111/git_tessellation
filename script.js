@@ -245,6 +245,7 @@ function pretentiousTranslate(text) {
         "I'm leaving now": "Good day, sir",
         "bye": "good day, sir",
         "I'm leaving": "Good day, sir",
+        "Sarc": "A great gentleman"
     };
 
     const lowerCaseReplacements = Object.keys(replacements).reduce((acc, key) => {
