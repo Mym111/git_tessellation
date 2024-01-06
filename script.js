@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const userInput = document.getElementById('userInput');
     userInput.addEventListener('keypress', function(event) {
-        if (event.keyCode === 13) { // 13 is the key code for Enter
-            event.preventDefault(); // Prevent the default action (newline) for Enter key in a textarea
+        if (event.key === 'Enter') {
+            event.preventDefault();
             translateText();
         }
     });
@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function translateText() {
     let userInput = document.getElementById('userInput').value;
     let requestBody = { prompt: userInput };
+    document.getElementById('translationOutput').innerText = 'Translating...';
 
     fetch('/translate', {
         method: 'POST',

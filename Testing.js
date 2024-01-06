@@ -1,5 +1,4 @@
 require('dotenv').config();
-console.log('Your OpenAI API Key is:', process.env.OPENAI_API_KEY);
 
 const express = require('express');
 const { Configuration, OpenAIApi } = require('openai');
