@@ -2,15 +2,17 @@ require('dotenv').config();
 console.log('Your OpenAI API Key is:', process.env.OPENAI_API_KEY);
 
 const express = require('express');
-const openai = require('openai');
+// Import the OpenAI package and extract the necessary components
+const { Configuration, OpenAIApi } = require('openai');
 
 const app = express();
 app.use(express.json());
 
-// Instantiate the OpenAIApi directly with the API key
-const api = new OpenAIApi({
-  apiKey: "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",
+// Set up the configuration for the OpenAI API client
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY, // Use the API key from the environment variables
 });
+const api = new OpenAIApi(configuration);
 
 app.post('/translate', async (req, res) => {
     console.log('Received translation request:', req.body); // Log the incoming request body
