@@ -1,4 +1,6 @@
 require('dotenv').config();
+console.log('Your OpenAI API Key is:', process.env.OPENAI_API_KEY);
+
 const express = require('express');
 const openai = require('openai');
 
@@ -6,11 +8,9 @@ const app = express();
 app.use(express.json());
 
 // Instantiate the OpenAIApi directly with the API key
-const api = new openai.OpenAIApi({
-  apiKey: process.env.OPENAI_API_KEY,
+const api = new OpenAIApi({
+  apiKey: "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",
 });
-
-console.log("OpenAI API Key:", process.env.OPENAI_API_KEY); // Log the API key for confirmation, remove this in production
 
 app.post('/translate', async (req, res) => {
     console.log('Received translation request:', req.body); // Log the incoming request body
