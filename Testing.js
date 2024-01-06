@@ -1,32 +1,34 @@
 require('dotenv').config();
 const express = require('express');
-const openai = require('openai');
+const { OpenAIApi } = require("openai");
 
 const app = express();
-app.use(express.json());
+app.use(express.json({ extended: true, limit: '1mb' }));
 
-// Assuming the OpenAIApi object is exported directly, we don't use new to instantiate it
-const api = new openai.OpenAIApi({
+// Set the OpenAI API Key directly without using Configuration
+const openai = new OpenAIApi({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
 app.post('/translate', async (req, res) => {
     try {
-        const response = await api.createChatCompletion({
+        const response = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",
             messages: [{
                 role: "system",
-                content: "You are a helpful translator..."
-                // Rest of the system message
+                content: "You are a helpful translator."
             }, {
                 role: "user",
                 content: req.body.prompt
             }],
+            max_tokens: 256,
         });
+
+        // Assuming the response structure matches the API's response
         res.json({ translation: response.data.choices[0].message.content });
     } catch (error) {
         console.error('Error:', error);
-        res.status(500).send('Error processing your request.');
+        res.status(500).json({ error: error.message });
     }
 });
 
