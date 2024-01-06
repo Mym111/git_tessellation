@@ -10,7 +10,7 @@ app.use(express.json());
 
 // Set up the configuration for the OpenAI API client
 const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY, // Use the API key from the environment variables
+  apiKey: "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", // Use the API key from the environment variables
 });
 const api = new OpenAIApi(configuration);
 
