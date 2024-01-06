@@ -2,40 +2,40 @@ require('dotenv').config();
 console.log('Your OpenAI API Key is:', process.env.OPENAI_API_KEY);
 
 const express = require('express');
-// Import the OpenAI package and extract the necessary components
 const { Configuration, OpenAIApi } = require('openai');
 
 const app = express();
 app.use(express.json());
 
-// Set up the configuration for the OpenAI API client
 const configuration = new Configuration({
-  apiKey: "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", // Use the API key from the environment variables
+  apiKey: process.env.OPENAI_API_KEY,
 });
-const api = new OpenAIApi(configuration);
+const openai = new OpenAIApi(configuration);
 
 app.post('/translate', async (req, res) => {
-    console.log('Received translation request:', req.body); // Log the incoming request body
+    console.log('Received translation request:', req.body);
 
     try {
-        const response = await api.createChatCompletion({
+        const response = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",
-            messages: [{
+            messages: [
+              {
                 role: "system",
-                content: "You are a helpful translator..."
-                // Rest of the system message
-            }, {
+                content: "You are a helpful translator. You will get a message from the user and they want you to re-word it in a pretentious or arrogant way, with a touch of humour. Mix in Shakespearean language and act like a haughty rich nobleman."
+              },
+              {
                 role: "user",
-                content: req.body.prompt // Log the prompt to ensure it's received correctly
-            }],
+                content: req.body.prompt
+              }
+            ],
         });
 
-        console.log('Received response from OpenAI:', response.data); // Log the full response from OpenAI
+        console.log('Received response from OpenAI:', response.data);
         res.json({ translation: response.data.choices[0].message.content });
     } catch (error) {
-        console.error('Error making request to OpenAI:', error); // Log detailed error if the request fails
+        console.error('Error making request to OpenAI:', error);
         if (error.response) {
-            console.error('OpenAI response error:', error.response.data); // Log OpenAI response error details
+            console.error('OpenAI response error:', error.response.data);
         }
         res.status(500).send('Error processing your request.');
     }
